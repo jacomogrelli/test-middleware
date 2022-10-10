@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "esModuleInterop": true,
+    "lib": [
+      "dom",
+      "es6",
+      "esnext.asynciterable"
+    ],
+    "typeRoots": [
+      "./custom_typings",
+      "./node_modules/@types"
+    ],
+    "sourceMap": true,
+    "allowJs": true,
+    "outDir": "./build",
+    "baseUrl": "./src",
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*",
+    "config/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "custom_typings"
+  ]
+}
