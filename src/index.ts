@@ -1,3 +1,9 @@
 import initBootstrap from './bootstrap';
 
-initBootstrap();
+(function init() {
+  try {
+    initBootstrap();
+  } catch (error) {
+    console.log(error);
+  }
+})();

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { IWebsocketsListItem } from './websocket';
+import { IWebsocketsListItem } from '../interfaces';
 
 class WebController {
   requestToWebsocket(request: Request, response: Response) {
@@ -9,10 +9,10 @@ class WebController {
       (websocketData) => websocketData.apiId === apiId,
     );
     if (!websocketItem) {
-      throw new Error('Websocket connection with api closed');
+      throw new Error(`Websocket connection with api ${apiId} closed`);
     }
     websocketItem.websocketData.send(JSON.stringify(request));
-    // TODO: await for API response and transfer it
+    // TODO: await for API response and transfer it to web app
     response.json('Request successfully send to api');
   }
 }

@@ -5,18 +5,12 @@ import WebSocket from 'ws';
 
 import { isJsonString } from '../lib';
 
-export interface IWebsocketsListItem {
-  websocketId: string;
-  apiId: 'string';
-  websocketData: WebSocket;
-}
-
 class WebsocketController {
   // eslint-disable-next-line max-lines-per-function
-  initWebsocket(websocket: WebSocket) {
-    const websocketId = randomUUID();
+  initWebsocket(websocket: WebSocket): void {
+    const websocketId: string = randomUUID();
 
-    websocket.addEventListener('message', (message) => {
+    websocket.addEventListener('message', (message: WebSocket.MessageEvent) => {
       if (isString(message.data) && isJsonString(message.data)) {
         const { apiId } = JSON.parse(message.data);
         const index = global.websocketsList
@@ -35,7 +29,7 @@ class WebsocketController {
       }
     });
 
-    websocket.addEventListener('close', (_event) => {
+    websocket.addEventListener('close', (_event: WebSocket.CloseEvent) => {
       const list = global.websocketsList;
       const index = list.findIndex(
         (websocket) => websocket.websocketId === websocketId,
