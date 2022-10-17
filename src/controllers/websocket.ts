@@ -12,20 +12,25 @@ class WebsocketController {
 
     websocket.addEventListener('message', (message: WebSocket.MessageEvent) => {
       if (isString(message.data) && isJsonString(message.data)) {
-        const { apiId } = JSON.parse(message.data);
-        const index = global.websocketsList
-          .map((websocket) => websocket.apiId)
-          .indexOf(apiId);
-        if (index < 0) {
-          global.websocketsList.push({
+        const { apiId, type } = JSON.parse(message.data);
+        if (type !== 'response') {
+          return;
+        }
+        let websocketItem = global.websocketsList.find(
+          (websocket) => websocket.apiId,
+        );
+        if (!websocketItem) {
+          websocketItem = {
             apiId: apiId,
             websocketId: websocketId,
             websocketData: websocket,
-          });
+            lastMessage: message.data,
+          };
+          global.websocketsList.push(websocketItem);
+        } else {
+          websocketItem.lastMessage = message.data;
         }
-        console.log(global.websocketsList.length);
         console.log(`Received message from client ${apiId}`);
-        websocket.send('Message received successfully');
       }
     });
 
