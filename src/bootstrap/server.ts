@@ -1,5 +1,6 @@
 import express from 'express';
 import expressWs from 'express-ws';
+import winston from 'winston';
 
 import initRouter from './router';
 
@@ -12,6 +13,6 @@ export default function initServer() {
   initRouter(app);
 
   app.listen(port, () => {
-    console.log(`Middleware server start on port ${port}`);
+    winston.info(`Middleware server start on port ${port}`);
   });
 }

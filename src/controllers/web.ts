@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { error } from 'winston';
 
 import { IWebsocketsListItem } from '../interfaces';
 
@@ -9,7 +10,9 @@ class WebController {
       (websocketData) => websocketData.apiId === apiId,
     );
     if (!websocketItem) {
-      throw new Error(`Websocket connection with api ${apiId} closed`);
+      const message = `Websocket connection with api ${apiId} closed`;
+      error(message);
+      throw new Error(message);
     }
     websocketItem.websocketData.send(request.body);
     response.status(200).json(websocketItem.lastMessage);

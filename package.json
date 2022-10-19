@@ -40,6 +40,7 @@
     "@types/express-ws": "^3.0.1",
     "dotenv": "^16.0.2",
     "express-ws": "^5.0.2",
-    "type-guards": "^0.15.0"
+    "type-guards": "^0.15.0",
+    "winston": "^3.8.2"
   }
 }

@@ -8,3 +8,4 @@ coverage/
 src/js/
 .DS_Store
 run.ts
+logs/
