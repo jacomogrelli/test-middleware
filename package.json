@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "build:prod": "npx tsc",
-    "start:prod": "APP_ENV=production npm run build:prod && node build/index.js",
+    "start:prod": "npm run build:prod && APP_ENV=production node build/index.js",
     "start:dev": "APP_ENV=development ts-node-dev src/index.ts",
     "lint": "eslint src/**/*.ts --fix"
   },
