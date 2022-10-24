@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import express from 'express';
 import expressWs from 'express-ws';
 import winston from 'winston';
@@ -9,6 +10,8 @@ export default function initServer() {
   const port = process.env.PORT;
   global.websocketsList = [];
   global.httpResponsesQueue = [];
+
+  app.use(bodyParser.json());
 
   expressWs(app);
   initRouter(app);
