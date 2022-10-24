@@ -8,6 +8,7 @@ export default function initServer() {
   const app = express();
   const port = process.env.PORT;
   global.websocketsList = [];
+  global.httpResponsesQueue = [];
 
   expressWs(app);
   initRouter(app);

@@ -6,6 +6,8 @@ import { IWebsocketsListItem } from '../interfaces';
 class WebController {
   requestToWebsocket(request: Request, response: Response) {
     const apiId = request.body?.apiId || 'dummy_id';
+    const type = request.body?.type || 'request';
+    const summary = new Date().getSeconds();
     const websocketItem: IWebsocketsListItem = global.websocketsList.find(
       (websocketData) => websocketData.apiId === apiId,
     );
@@ -14,8 +16,9 @@ class WebController {
       error(message);
       throw new Error(message);
     }
-    websocketItem.websocketData.send(request.body);
-    response.status(200).json(websocketItem.lastMessage);
+
+    global.httpResponsesQueue.push(response);
+    websocketItem.websocketData.send(JSON.stringify({ type, apiId, summary }));
   }
 }
 

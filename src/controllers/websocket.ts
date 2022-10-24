@@ -54,27 +54,21 @@ class WebsocketController {
   }
 
   private onResponseMessage(message: WebSocket.MessageEvent): void {
-    const { apiId } = validateMessageData(message.data)
-      ? JSON.parse(message.data)
-      : undefined;
-    if (!apiId) {
+    const response = global.httpResponsesQueue.shift();
+    if (response) {
+      response.send(message.data);
       this.logAndSendResponse({
-        responseMessage: `Missed apiId in message on websocket ID ${this.websocketId}`,
-        logLevel: 'error',
-        status: STATUS_CODES.BAD_REQUEST,
+        responseMessage: 'Message received successfully',
+        logLevel: 'info',
+        status: STATUS_CODES.ACCEPTED,
       });
-
-      return;
+    } else {
+      this.logAndSendResponse({
+        responseMessage: 'There are no opened HTTP requests',
+        logLevel: 'error',
+        status: STATUS_CODES.CLIENT_CLOSED_REQUEST,
+      });
     }
-    const index = global.websocketsList.findIndex(
-      (websocket) => websocket.websocketId === this.websocketId,
-    );
-    global.websocketsList[index].lastMessage = message.data;
-    this.logAndSendResponse({
-      responseMessage: 'Message received successfully',
-      logLevel: 'info',
-      status: STATUS_CODES.ACCEPTED,
-    });
   }
 
   private onOpenMessage(message: WebSocket.MessageEvent): void {

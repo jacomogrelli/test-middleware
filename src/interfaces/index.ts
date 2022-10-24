@@ -6,7 +6,6 @@ export interface IWebsocketsListItem {
   websocketId: string;
   apiId: string;
   websocketData: WebSocket;
-  lastMessage?: string;
 }
 
 export interface IWebsocketLogData {

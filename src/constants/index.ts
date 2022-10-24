@@ -9,4 +9,5 @@ export const enum STATUS_CODES {
   ACCEPTED = 202,
   BAD_REQUEST = 400,
   CONFLICT = 409,
+  CLIENT_CLOSED_REQUEST = 499,
 }
