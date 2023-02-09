@@ -243,7 +243,8 @@
           "ws"
         ]
       }
-    ]
+    ],
+    "unicorn/prefer-export-from": [ "off" ]
   },
   "overrides": [
     {
