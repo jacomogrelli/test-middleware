@@ -1,7 +1,6 @@
 import express from 'express';
 
-import WebController from '../controllers/web';
-import WebsocketController from '../controllers/websocket';
+import { WebController, WebsocketController } from '../controllers';
 
 export default function initRouter(app) {
   const router = express.Router();
